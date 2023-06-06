@@ -44,18 +44,21 @@ function App(): JSX.Element {
       try {
         const postingData: Posting[] = await postingService.getAllPostings()
         setPostings(postingData)
-
       } catch (error) {
         console.log(error)
       }
     }
-  })
+    user ? fetchPostings() : setPostings([])
+  }, [user])
 
   return (
     <>
       <NavBar user={user} handleLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Landing user={user} />} />
+        <Route 
+          path="/" 
+          element={<Landing user={user} />} 
+        />
         <Route
           path="/profiles"
           element={
