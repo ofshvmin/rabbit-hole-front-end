@@ -15,6 +15,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
 import * as authService from './services/authService'
+import * as postingService from './services/postingService'
 
 // styles
 import './App.css'
@@ -35,6 +36,8 @@ function App(): JSX.Element {
   const handleAuthEvt = (): void => {
     setUser(authService.getUser())
   }
+
+  postingService.getAllPostings()
 
   return (
     <>

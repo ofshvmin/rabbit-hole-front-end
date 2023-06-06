@@ -1,5 +1,11 @@
-/* ---------===== custom props ====--------- */
+/* ---------===== custom models ====--------- */
 
+export interface Posting {
+  id: number;
+  creatorId: number;
+  numOfLikes: number;
+  text: string;
+}
 
 
 /* ---------===== auth models =====--------- */
