@@ -1,5 +1,5 @@
 // npm modules 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
 // pages
@@ -22,9 +22,11 @@ import './App.css'
 
 // types
 import { User } from './types/models'
+import { Posting } from './types/models'
 
 function App(): JSX.Element {
   const [user, setUser] = useState<User | null>(authService.getUser())
+  const [postings, setPostings] = useState<Posting[]>([])
   const navigate = useNavigate()
   
   const handleLogout = (): void => {
@@ -37,7 +39,17 @@ function App(): JSX.Element {
     setUser(authService.getUser())
   }
 
-  postingService.getAllPostings()
+  useEffect((): void => {
+    const fetchPostings = async (): Promise<void> => {
+      try {
+        const postingData: Posting[] = await postingService.getAllPostings()
+        setPostings(postingData)
+
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  })
 
   return (
     <>
