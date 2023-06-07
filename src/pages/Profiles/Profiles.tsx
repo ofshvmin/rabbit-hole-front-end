@@ -38,6 +38,7 @@ const Profiles = (): JSX.Element => {
         <p key={profile.id}>
           <img
             src={profile.photo? profile.photo : ""}
+            alt={`${profile.name}'s avatar`} 
             />
             
             {profile.name}
