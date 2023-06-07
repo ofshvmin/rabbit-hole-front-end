@@ -20,7 +20,7 @@ const NewPost = (): JSX.Element => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
-  const handleSubmit = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault()
     console.log(formData);
     handleAddPost(formData)
