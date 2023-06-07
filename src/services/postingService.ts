@@ -30,9 +30,15 @@ async function create(formData: PostingFormData): Promise<Posting> {
   
 }
 
-function deletePosting(postingId) {
+async function deletePosting(postingId: number): Promise<void> {
   console.log("DELETE", postingId);
-  
+  const res = await fetch(`${BASE_URL}/${postingId}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${tokenService.getToken()}`
+    },
+  })
+  return res.json()
 }
 
 export { getAllPostings, create, deletePosting as delete }
