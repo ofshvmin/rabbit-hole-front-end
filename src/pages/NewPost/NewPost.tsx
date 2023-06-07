@@ -9,10 +9,13 @@ import styles from './NewPost.module.css'
 
 const NewPost = (props) => {
   const [formData, setFormData ] = useState({
-    
     text: '',
-    
   })
+
+function handleSubmit(formData) => {
+  console.log(FormData);
+  
+}
 
   return (
     <main className={styles.container}>
