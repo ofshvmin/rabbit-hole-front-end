@@ -5,7 +5,7 @@ import { useState } from "react"
 import styles from './NewPost.module.css'
 
 
-
+import * as postingService from '../../services/postingService'
 
 const NewPost = (): JSX.Element => {
   const [formData, setFormData ] = useState({
@@ -16,9 +16,14 @@ const NewPost = (): JSX.Element => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
     console.log(formData);
-    
+    handleAddPost(formData)
+  }
+
+  const handleAddPost = async (postFormData) => {
+    const newPost = await postingService.create(postFormData)
   }
 
   return (

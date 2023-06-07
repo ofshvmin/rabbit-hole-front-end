@@ -15,5 +15,19 @@ async function getAllPostings(): Promise<Posting[]> {
   return await res.json() as Posting[]
 }
 
-export { getAllPostings }
+async function create(formData): Promise {
+  
+    const res = await fetch(BASE_URL, {
+      method: 'POST', 
+      headers: {
+        'Authorization': `Bearer ${tokenService.getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+    return res.json()
+  
+}
+
+export { getAllPostings, create }
 
