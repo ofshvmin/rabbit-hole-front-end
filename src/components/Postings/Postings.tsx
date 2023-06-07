@@ -38,12 +38,15 @@ const Postings = (props: PostingsProps): JSX.Element => {
     user ? fetchPostings() : setPostings([])
   }, [user])
 
+  const handleDeletePosting = (postingId): void => {
+    postingService.delete(postingId)
+  }
+
   if (!postings.length) {
     return <main className={styles.container}><h1>Loading...</h1></main>
   }
-
   console.log( postings );
-  
+ 
 
   return (
     <section className={styles.container}>
@@ -52,6 +55,8 @@ const Postings = (props: PostingsProps): JSX.Element => {
         <PostingCard           
           key={posting.id}
           posting={posting}
+          user={user}
+          handleDeletePosting={handleDeletePosting}
         />
       ))}
     </section>

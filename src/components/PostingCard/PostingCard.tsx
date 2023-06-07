@@ -1,3 +1,6 @@
+// npm modules
+import { Link } from "react-router-dom"
+
 // assets
 // import defaultPic from "../../assets/icons/profile.png"
 
@@ -5,27 +8,47 @@
 // import VoteManager from "../VoteManager/VoteManager"
 
 // types
-import { Posting } from "../../types/models"
+import { Posting, User } from "../../types/models"
 
 
 interface PostingCardProps {
   posting: Posting;
+  user: User;
   // handleVote: (formData: VoteManagerFormData) => Promise<void>;
+  handleDeletePosting: (postingId: number) => void
 }
 
 const PostingCard = (props: PostingCardProps): JSX.Element => {
-  const { posting } = props
-
+  const { posting, user, handleDeletePosting } = props
+  console.log("USER", user);
+  console.log(posting);
+  console.log(posting.creatorId === user.profile.id);
+  
+  
   return (
-
+    
     <article>
-      {/* <img 
-        src={profile.photo ? profile.photo : defaultPic} 
-        alt={`${profile.name}'s avatar`} 
-      /> */}
-      <h1>{posting.text}</h1>
-      {/* <VoteManager { ...props } /> */}
+        <header>
+          {/* <img 
+            src={profile.photo ? profile.photo : defaultPic} 
+            alt={`${profile.name}'s avatar`} 
+          /> */}
+          
+          {/* <VoteManager { ...props } /> */}
+        </header>
+      {posting.creatorId === user.id ? 
+        <span>
+              <Link to={`/posts/${posting.id}/edit`} state={posting}>Edit</Link>
+              <button onClick={() => handleDeletePosting(posting.id)}>
+                Delete
+              </button>
+        </span>
+        :
+        <span></span>
+      }
+        <p>{posting.text}</p>
     </article>
+    
   )
 }
 

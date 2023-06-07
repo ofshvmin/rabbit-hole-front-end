@@ -30,5 +30,10 @@ async function create(formData: PostingFormData): Promise<Posting> {
   
 }
 
-export { getAllPostings, create }
+function deletePosting(postingId) {
+  console.log("DELETE", postingId);
+  
+}
+
+export { getAllPostings, create, deletePosting as delete }
 
