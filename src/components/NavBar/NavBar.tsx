@@ -12,6 +12,9 @@ interface NavBarProps {
 const NavBar = (props: NavBarProps): JSX.Element => {
   const { user, handleLogout } = props
   
+  console.log(user?.profile);
+  
+
   return (
     <nav>
       {user ?

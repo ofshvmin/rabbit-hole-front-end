@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import styles from './Postings.module.css'
 
 //components
-//postingCard
+import PostingCard from '../PostingCard/PostingCard';
 
 
 import * as postingService from '../../services/postingService'
@@ -38,25 +38,23 @@ const Postings = (props: PostingsProps): JSX.Element => {
     user ? fetchPostings() : setPostings([])
   }, [user])
 
-
-
-  // if (!postings.length) {
-  //   return <main className={styles.container}><h1>Loading...</h1></main>
-  // }
+  if (!postings.length) {
+    return <main className={styles.container}><h1>Loading...</h1></main>
+  }
 
   console.log( postings );
   
 
   return (
-    <h1>Postings</h1>
-    // <section className={styles.container}>
-    //   {postings.map((posting: Posting) => (
-    //     <PostingCard 
-    //       key={...}
-    //       posting={posting}
-    //     />
-    //   ))}
-    // </section>
+    <section className={styles.container}>
+      <h1>Postings</h1>
+      {postings.map((posting: Posting) => (
+        <PostingCard           
+          // key={...}
+          // posting={posting}
+        />
+      ))}
+    </section>
   )
 }
 
