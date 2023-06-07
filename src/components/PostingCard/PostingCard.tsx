@@ -6,7 +6,7 @@
 
 // types
 import { Posting } from "../../types/models"
-import { VoteManagerFormData } from "../../types/forms"
+
 
 interface PostingCardProps {
   posting: Posting;

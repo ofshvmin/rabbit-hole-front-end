@@ -3,6 +3,7 @@ import * as tokenService from './tokenService'
 
 //types
 import { Posting } from '../types/models'
+import { PostingFormData } from '../types/forms'
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/postings`
 
@@ -15,7 +16,7 @@ async function getAllPostings(): Promise<Posting[]> {
   return await res.json() as Posting[]
 }
 
-async function create(formData): Promise {
+async function create(formData: PostingFormData): Promise<Posting> {
   
     const res = await fetch(BASE_URL, {
       method: 'POST', 

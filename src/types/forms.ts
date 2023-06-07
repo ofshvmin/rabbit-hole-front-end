@@ -1,6 +1,8 @@
 /* ---------==== custom forms ====--------- */
 
-
+export interface PostingFormData {
+  text: string
+}
 
 /* ---------===== auth forms =====--------- */
 

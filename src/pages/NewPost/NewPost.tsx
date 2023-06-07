@@ -1,28 +1,32 @@
 // npm modules
-import { useState } from "react"
+import { FormEvent, ReactEventHandler, useState } from "react"
 
 // css
 import styles from './NewPost.module.css'
 
-
+//services
 import * as postingService from '../../services/postingService'
+
+//types
+import { PostingFormData } from "../../types/forms"
+
 
 const NewPost = (): JSX.Element => {
   const [formData, setFormData ] = useState({
     text: '',
   })
 
-  const handleChange = (evt) => {
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
-  const handleSubmit = (evt) => {
+  const handleSubmit = (evt: React.ChangeEvent<HTMLInputElement>) => {
     evt.preventDefault()
     console.log(formData);
     handleAddPost(formData)
   }
 
-  const handleAddPost = async (postFormData) => {
+  const handleAddPost = async (postFormData: PostingFormData) => {
     const newPost = await postingService.create(postFormData)
   }
 
