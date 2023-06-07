@@ -18,15 +18,14 @@ const PostingCard = (props: PostingCardProps): JSX.Element => {
 
   return (
 
-    <h2>this is a posting card</h2>
-    // <article>
-    //   <img 
-    //     src={profile.photo ? profile.photo : defaultPic} 
-    //     alt={`${profile.name}'s avatar`} 
-    //   />
-    //   <h1>{profile.name}</h1>
-    //   <VoteManager { ...props } />
-    // </article>
+    <article>
+      {/* <img 
+        src={profile.photo ? profile.photo : defaultPic} 
+        alt={`${profile.name}'s avatar`} 
+      /> */}
+      <h1>{posting.text}</h1>
+      {/* <VoteManager { ...props } /> */}
+    </article>
   )
 }
 

@@ -25,6 +25,8 @@ const Profiles = (): JSX.Element => {
     fetchProfiles()
   }, [])
 
+  console.log(profiles);
+
   if (!profiles.length) {
     return <main className={styles.container}><h1>Loading...</h1></main>
   }
@@ -33,7 +35,15 @@ const Profiles = (): JSX.Element => {
     <main className={styles.container}>
       <h1>Hello. This is a list of all the profiles.</h1>
       {profiles.map((profile: Profile) => (
-        <p key={profile.id}>{profile.name}</p>
+        <p key={profile.id}>
+          <img
+            src={profile.photo? profile.photo : ""}
+            />
+            
+            {profile.name}
+
+
+        </p>
       ))}
     </main>
   )

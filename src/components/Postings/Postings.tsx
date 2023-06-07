@@ -50,8 +50,8 @@ const Postings = (props: PostingsProps): JSX.Element => {
       <h1>Postings</h1>
       {postings.map((posting: Posting) => (
         <PostingCard           
-          // key={...}
-          // posting={posting}
+          key={posting.id}
+          posting={posting}
         />
       ))}
     </section>
