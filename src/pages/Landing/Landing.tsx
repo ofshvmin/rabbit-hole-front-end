@@ -2,11 +2,12 @@
 import styles from './Landing.module.css'
 
 //components
-import Posting from '../../components/Postings/Postings';
+import Postings from '../../components/Postings/Postings';
 
 // types
 import { User } from '../../types/models'
-import { Postings } from '../../components/Postings/Postings'
+import { Posting } from '../../types/models';
+
 
 interface LandingProps {
   user: User | null;
@@ -19,7 +20,9 @@ const Landing = (props: LandingProps): JSX.Element => {
     <main className={styles.container}>
 
       {user ? 
-        <Postings />  
+        <Postings 
+          user={ user}
+        />  
 
       : 
         <h1>"please log in"</h1> 

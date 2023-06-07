@@ -15,18 +15,18 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
 import * as authService from './services/authService'
-import * as postingService from './services/postingService'
+
 
 // styles
 import './App.css'
 
 // types
-import { User } from './types/models'
-import { Posting } from './types/models'
+import { User, Posting } from './types/models'
+
 
 function App(): JSX.Element {
   const [user, setUser] = useState<User | null>(authService.getUser())
-  const [postings, setPostings] = useState<Posting[]>([])
+  
   const navigate = useNavigate()
   
   const handleLogout = (): void => {
@@ -39,17 +39,7 @@ function App(): JSX.Element {
     setUser(authService.getUser())
   }
 
-  useEffect((): void => {
-    const fetchPostings = async (): Promise<void> => {
-      try {
-        const postingData: Posting[] = await postingService.getAllPostings()
-        setPostings(postingData)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    user ? fetchPostings() : setPostings([])
-  }, [user])
+
 
   return (
     <>
