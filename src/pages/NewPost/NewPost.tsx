@@ -46,7 +46,6 @@ const NewPost = (): JSX.Element => {
         <label htmlFor="text-input">Text</label>
         <textarea
           required
-          type="text"
           name="text"
           id="text-input"
           value={formData.text}
