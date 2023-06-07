@@ -65,6 +65,7 @@ function App(): JSX.Element {
               <NewPost />
             </ProtectedRoute>
           }
+        />
         <Route
           path="/auth/signup"
           element={<Signup handleAuthEvt={handleAuthEvt} />}

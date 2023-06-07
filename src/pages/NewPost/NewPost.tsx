@@ -7,15 +7,19 @@ import styles from './NewPost.module.css'
 
 
 
-const NewPost = (props) => {
+const NewPost = (): JSX.Element => {
   const [formData, setFormData ] = useState({
     text: '',
   })
 
-function handleSubmit(formData) => {
-  console.log(FormData);
-  
-}
+  const handleChange = (evt) => {
+    setFormData({ ...formData, [evt.target.name]: evt.target.value })
+  }
+
+  const handleSubmit = () => {
+    console.log(formData);
+    
+  }
 
   return (
     <main className={styles.container}>
@@ -60,5 +64,5 @@ function handleSubmit(formData) => {
     </main>
   )
 }
- 
+
 export default NewPost
