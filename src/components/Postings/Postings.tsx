@@ -15,19 +15,20 @@ interface PostingsProps {
 const Postings = (props: PostingsProps): JSX.Element => {
   const { postings } = props
 
-  if (!postings.length) {
-    return <main className={styles.container}><h1>Loading...</h1></main>
-  }
+  // if (!postings.length) {
+  //   return <main className={styles.container}><h1>Loading...</h1></main>
+  // }
 
   return (
-    <main className={styles.container}>
-      {postings.map((posting: Posting) => (
-        <PostingCard 
-          key={...}
-          posting={posting}
-        />
-      ))}
-    </main>
+    <h1>Postings</h1>
+    // <section className={styles.container}>
+    //   {postings.map((posting: Posting) => (
+    //     <PostingCard 
+    //       key={...}
+    //       posting={posting}
+    //     />
+    //   ))}
+    // </section>
   )
 }
 
