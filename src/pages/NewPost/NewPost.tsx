@@ -16,7 +16,7 @@ const NewPost = (): JSX.Element => {
     text: '',
   })
 
-  const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value })
   }
 
