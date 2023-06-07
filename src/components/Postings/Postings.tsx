@@ -15,8 +15,6 @@ import { Posting, User } from '../../types/models'
 import { json } from 'react-router-dom'
 
 
-
-
 interface PostingsProps {
   user: User
 }
