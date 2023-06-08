@@ -13,9 +13,6 @@ interface AuthorInfoProps {
 const AuthorInfo = (props: AuthorInfoProps) => {
   const { profile } = props
 
-console.log(props);
-
-
   return (
     <div className={styles.container}>
       <p></p>
