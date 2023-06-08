@@ -41,5 +41,11 @@ async function deletePosting(postingId: number): Promise<void> {
   return res.json()
 }
 
-export { getAllPostings, create, deletePosting as delete }
+async function update(postingId: number): Promise<void> {
+  console.log('update this posting');
+  // const updatedPosting = await
+  
+}
+
+export { getAllPostings, create, deletePosting as delete, update }
 

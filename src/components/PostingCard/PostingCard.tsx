@@ -14,8 +14,7 @@ import { Posting, User } from "../../types/models"
 interface PostingCardProps {
   posting: Posting;
   user: User;
-  // handleVote: (formData: VoteManagerFormData) => Promise<void>;
-  handleDeletePosting: (postingId: number) => void
+  handleDeletePosting: (postingId: number) => void;
 }
 
 const PostingCard = (props: PostingCardProps): JSX.Element => {

@@ -9,9 +9,14 @@ import styles from './EditPosting.module.css'
 // import Postings from '../../components/Postings/Postings';
 
 // types
+import { PostingFormData } from '../../types/forms'
+
 // import { User } from '../../types/models'
 // import { Posting } from '../../types/models';
 
+
+//services
+import * as postingService from '../../services/postingService'
 
 // interface EditPostingProps {
 //   // user: User | null;
@@ -23,7 +28,7 @@ const EditPosting = (): JSX.Element => {
   const location = useLocation()
   const [formData, setFormData] = useState(location.state)
 
-  console.log(location);
+  console.log("this is location:", location);
 
   const handleChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormData({...FormData, [evt.target.name]: evt.target.value})
@@ -32,6 +37,11 @@ const EditPosting = (): JSX.Element => {
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault()
     console.log('submit the form data');
+    
+  }
+
+  const handleUpdatePosting = async (formData: PostingFormData): Promise<void> => {
+    const updatedPosting = await postingService.update(formData)
     
   }
 

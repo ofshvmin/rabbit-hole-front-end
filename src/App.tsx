@@ -17,6 +17,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
 import * as authService from './services/authService'
+import * as postingService from './services/postingService'
 
 
 // styles
@@ -28,7 +29,7 @@ import { User, Posting } from './types/models'
 
 function App(): JSX.Element {
   const [user, setUser] = useState<User | null>(authService.getUser())
-  
+  const [postings, setPostings] = useState<Posting[]>([])
   const navigate = useNavigate()
   
   const handleLogout = (): void => {
@@ -41,7 +42,22 @@ function App(): JSX.Element {
     setUser(authService.getUser())
   }
 
+  useEffect((): void => {
+    const fetchPostings = async (): Promise<void> => {
+      try {
+        const postingData: Posting[] = await postingService.getAllPostings()
+        setPostings(postingData)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    user ? fetchPostings() : setPostings([])
+  }, [user])
 
+  const handleDeletePosting = (postingId: number): void => {
+    postingService.delete(postingId)
+    setPostings(postings.filter(posting => posting.id !== postingId))
+  }
 
   return (
     <>
@@ -49,7 +65,11 @@ function App(): JSX.Element {
       <Routes>
         <Route 
           path="/" 
-          element={<Landing user={user} />} 
+          element={<Landing 
+            user={user} 
+            postings={postings}
+            handleDeletePosting={handleDeletePosting}
+          />} 
         />
         <Route
           path="/profiles"
