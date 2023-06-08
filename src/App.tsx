@@ -25,6 +25,7 @@ import './App.css'
 
 // types
 import { User, Posting } from './types/models'
+import { PostingFormData } from './types/forms'
 
 
 function App(): JSX.Element {
@@ -59,6 +60,11 @@ function App(): JSX.Element {
     setPostings(postings.filter(posting => posting.id !== postingId))
   }
 
+  const handleUpdatePosting = async (postingFormData: PostingFormData): Promise<void> => {
+    const updatedPosting = await postingService.update(postingFormData)
+    setPostings(postings.map(p => postingFormData.id === p.id ? updatedPosting : p))
+  }
+
   return (
     <>
       <NavBar user={user} handleLogout={handleLogout} />
@@ -91,7 +97,9 @@ function App(): JSX.Element {
           path="/posts/:postId/edit" 
           element={
             <ProtectedRoute user={user}>
-              <EditPosting  />
+              <EditPosting  
+                handleUpdatePosting={handleUpdatePosting}
+              />
             </ProtectedRoute>
           } 
         />

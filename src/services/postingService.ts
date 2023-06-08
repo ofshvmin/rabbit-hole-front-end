@@ -41,10 +41,18 @@ async function deletePosting(postingId: number): Promise<void> {
   return res.json()
 }
 
-async function update(postingId: number): Promise<void> {
+async function update(postingFormData: PostingFormData): Promise<Posting> {
   console.log('update this posting');
   // const updatedPosting = await
-  
+  const res = await fetch(`${BASE_URL}/${postingFormData.id}`, {
+    method: 'PUT',
+      headers: { 
+        'Authorization': `Bearer ${tokenService.getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(postingFormData)
+})
+  return res.json()
 }
 
 export { getAllPostings, create, deletePosting as delete, update }

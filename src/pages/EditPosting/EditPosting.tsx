@@ -15,8 +15,7 @@ import { PostingFormData } from '../../types/forms'
 // import { Posting } from '../../types/models';
 
 
-//services
-import * as postingService from '../../services/postingService'
+
 
 // interface EditPostingProps {
 //   // user: User | null;
@@ -40,10 +39,7 @@ const EditPosting = (): JSX.Element => {
     
   }
 
-  const handleUpdatePosting = async (formData: PostingFormData): Promise<void> => {
-    const updatedPosting = await postingService.update(formData)
-    
-  }
+
 
   return (
       <main className={styles.container}>
