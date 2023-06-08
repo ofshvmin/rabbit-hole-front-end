@@ -9,6 +9,7 @@ import Landing from './pages/Landing/Landing'
 import Profiles from './pages/Profiles/Profiles'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
 import NewPost from './pages/NewPost/NewPost'
+import EditPosting from './pages/EditPosting/EditPosting'
 
 // components
 import NavBar from './components/NavBar/NavBar'
@@ -66,14 +67,14 @@ function App(): JSX.Element {
             </ProtectedRoute>
           }
         />
-        {/* <Route 
-          path="/posts/:postId"
+        <Route 
+          path="/posts/:postId/edit" 
           element={
             <ProtectedRoute user={user}>
-              <PostDetails />
+              <EditPosting  />
             </ProtectedRoute>
-          }
-        /> */}
+          } 
+        />
         <Route
           path="/auth/signup"
           element={<Signup handleAuthEvt={handleAuthEvt} />}
