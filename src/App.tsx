@@ -54,7 +54,7 @@ function App(): JSX.Element {
     user ? fetchPostings() : setPostings([])
   }, [user])
 
-  const handleDeletePosting = (postingId: number): void => {
+  const handleDeletePosting = async (postingId: number): Promise<void> => {
     postingService.delete(postingId)
     setPostings(postings.filter(posting => posting.id !== postingId))
   }
