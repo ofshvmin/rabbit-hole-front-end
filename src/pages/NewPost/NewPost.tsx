@@ -27,7 +27,7 @@ const NewPost = (): JSX.Element => {
   }
 
   const handleAddPost = async (postFormData: PostingFormData) => {
-    const newPost = await postingService.create(postFormData)
+    await postingService.create(postFormData)
   }
 
   return (

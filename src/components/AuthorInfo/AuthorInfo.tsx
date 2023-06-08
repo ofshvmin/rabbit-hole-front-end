@@ -1,5 +1,4 @@
 //css
-import { Posting } from '../../types/models'
 import styles from './AuthorInfo.module.css'
 
 interface AuthorInfoProps {
