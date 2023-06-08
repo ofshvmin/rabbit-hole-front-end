@@ -11,31 +11,29 @@ import styles from './EditPosting.module.css'
 // types
 import { PostingFormData } from '../../types/forms'
 
-// import { User } from '../../types/models'
-// import { Posting } from '../../types/models';
+
+interface EditPostingProps {
+  handleUpdatePosting: (postingFormData: PostingFormData) => Promise<void>
+}
 
 
-
-
-// interface EditPostingProps {
-//   // user: User | null;
-// }
-
-// props: EditPostingProps
-
-const EditPosting = (): JSX.Element => {
+const EditPosting = (props: EditPostingProps): JSX.Element => {
   const location = useLocation()
   const [formData, setFormData] = useState(location.state)
+  const { handleUpdatePosting } = props
 
   console.log("this is location:", location);
 
   const handleChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setFormData({...FormData, [evt.target.name]: evt.target.value})
+    setFormData({...formData, [evt.target.name]: evt.target.value})
+    console.log("FORM DATA", formData);
   }
 
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault()
     console.log('submit the form data');
+    console.log("FORM DATA", formData);
+    handleUpdatePosting(formData)
     
   }
 
