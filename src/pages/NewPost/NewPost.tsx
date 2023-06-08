@@ -1,5 +1,5 @@
 // npm modules
-import { FormEvent, ReactEventHandler, useState } from "react"
+import { useState } from "react"
 
 // css
 import styles from './NewPost.module.css'

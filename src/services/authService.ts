@@ -54,6 +54,8 @@ async function login(loginFormData: LoginFormData): Promise<void> {
   if (json.err) throw new Error(json.err)
 
   if (json.token) tokenService.setToken(json.token)
+  console.log(json.token);
+  
 }
 
 async function changePassword(

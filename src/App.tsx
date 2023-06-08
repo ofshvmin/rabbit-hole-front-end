@@ -28,6 +28,7 @@ import { User, Posting } from './types/models'
 import { PostingFormData } from './types/forms'
 
 
+
 function App(): JSX.Element {
   const [user, setUser] = useState<User | null>(authService.getUser())
   const [postings, setPostings] = useState<Posting[]>([])
@@ -39,6 +40,8 @@ function App(): JSX.Element {
     navigate('/')
   }
 
+
+  
   const handleAuthEvt = (): void => {
     setUser(authService.getUser())
   }
@@ -64,6 +67,9 @@ function App(): JSX.Element {
     const updatedPosting = await postingService.update(postingFormData)
     setPostings(postings.map(p => postingFormData.id === p.id ? updatedPosting : p))
   }
+
+
+
 
   return (
     <>

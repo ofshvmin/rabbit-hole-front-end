@@ -5,6 +5,11 @@ export interface Posting {
   creatorId: number;
   numOfLikes: number;
   text: string;
+  profile: {
+    id: number;
+    name: string;
+    photo: string;
+  }
 }
 
 

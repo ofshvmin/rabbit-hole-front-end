@@ -1,12 +1,9 @@
-// npm moduesl
+// npm modules
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 // css
 import styles from './EditPosting.module.css'
-
-//components
-// import Postings from '../../components/Postings/Postings';
 
 // types
 import { PostingFormData } from '../../types/forms'
