@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom'
+
 //assets
 import rabbithole from '../../assets/RabbitHoleTitle.png'
 
@@ -6,11 +8,12 @@ import styles from './Landing.module.css'
 
 //components
 import PostingsList from '../../components/Postings/PostingsList';
-import LoginPage from '../Login/Login';
+import LoginPage from '../Login/Login'
+
 
 // types
 import { User, Posting } from '../../types/models'
-import { AuthPageProps } from '../../types/props';
+
 
 interface LandingProps {
   user: User | null;
@@ -37,6 +40,7 @@ const Landing = (props: LandingProps): JSX.Element => {
         <>
           <img src={rabbithole} alt="" />
           <LoginPage handleAuthEvt={handleAuthEvt}/>
+          <NavLink to="/auth/signup">Sign Up</NavLink>
 
         </>
 

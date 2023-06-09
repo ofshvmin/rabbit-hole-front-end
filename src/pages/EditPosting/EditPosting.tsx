@@ -1,6 +1,6 @@
 // npm modules
 import { useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 // css
 import styles from './EditPosting.module.css'
@@ -16,6 +16,7 @@ interface EditPostingProps {
 
 const EditPosting = (props: EditPostingProps): JSX.Element => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [formData, setFormData] = useState(location.state)
   const { handleUpdatePosting } = props
 
@@ -26,11 +27,10 @@ const EditPosting = (props: EditPostingProps): JSX.Element => {
     console.log("FORM DATA", formData);
   }
 
-  const handleSubmit = (evt: React.FormEvent) => {
+  const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault()
-    console.log('submit the form data');
-    console.log("FORM DATA", formData);
-    handleUpdatePosting(formData)
+    await handleUpdatePosting(formData)
+    navigate('/')
     
   }
 

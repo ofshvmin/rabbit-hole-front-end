@@ -35,6 +35,7 @@ const PostingCard = (props: PostingCardProps): JSX.Element => {
           
           {/* <VoteManager { ...props } /> */}
         </header>
+        <p>{posting.text}</p>
       {posting.creatorId === user.id ? 
         <span>
               <Link to={`/posts/${posting.id}/edit`} state={posting}>Edit</Link>
@@ -45,7 +46,6 @@ const PostingCard = (props: PostingCardProps): JSX.Element => {
         :
         <span></span>
       }
-        <p>{posting.text}</p>
     </article>
     
   )

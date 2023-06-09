@@ -40,7 +40,8 @@ body {
 
 a,
 a:visited {
-  color: #00d8ff
+  color:var(--9); 
+  font-weight: 600;
 }
 
 div#root {
