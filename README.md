@@ -3,6 +3,9 @@
 
 ![screenshot](./assets/RabbitHoleTitle.png)
 
+<img src= "./assets/RabbitHoleTitle.png" >
+
+
 # Background
 
 Rabbit Hole is a social media application where users can post about the topics that interest them and be served fascinating content tailored to them based on the topics they have viewed and liked in the past.  
