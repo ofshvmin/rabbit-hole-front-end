@@ -3,8 +3,6 @@
 
 ![screenshot](./src/assets/RabbitHoleTitle.png)
 
-<img src= "./src/assets/RabbitHoleTitle.png" >
-
 
 # Background
 
