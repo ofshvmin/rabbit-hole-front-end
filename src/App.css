@@ -43,9 +43,23 @@ a:visited {
   color: #00d8ff
 }
 
+div#root {
+  display: flex;
+}
+
+nav {
+  position: sticky;
+}
+
 nav > ul {
   margin: 0;
   padding: 16px 32px;
+}
+
+nav > img {
+  margin: 20px;
+  width: 100px;
+  object-fit: cover;
 }
 
 article {

@@ -1,3 +1,6 @@
+//assets
+import rabbit from '../../assets/RabbitHole.png'
+
 // npm modules
 import { NavLink } from 'react-router-dom'
 
@@ -12,11 +15,12 @@ interface NavBarProps {
 const NavBar = (props: NavBarProps): JSX.Element => {
   const { user, handleLogout } = props
   
-  console.log(user?.profile);
-  
+console.log("jewser:", user)
+
 
   return (
     <nav>
+      <img src={rabbit} alt="logo" />
       {user ?
         <ul>
           <li>Welcome, {user.name}</li>

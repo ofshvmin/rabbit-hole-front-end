@@ -70,62 +70,87 @@ function App(): JSX.Element {
 
 
 
+  // return (
+  //   <main className={styles.container}>
 
+  //     {user ? 
+  //       <PostingsList
+  //         user={ user }
+  //         postings={ postings }
+  //         handleDeletePosting={ handleDeletePosting }
+  //       />  
+
+  //     : 
+  //       <>
+  //         <img src={rabbithole} alt="" />
+  //       </>
+
+  //     }
+  //   </main>
   return (
     <>
-      <NavBar user={user} handleLogout={handleLogout} />
-      <Routes>
-        <Route 
-          path="/" 
-          element={<Landing 
-            user={user} 
-            postings={postings}
-            handleDeletePosting={handleDeletePosting}
-          />} 
-        />
-        <Route
-          path="/profiles"
-          element={
-            <ProtectedRoute user={user}>
-              <Profiles />
-            </ProtectedRoute>
-          }
-        />
-        <Route 
-          path="/posts/new"
-          element={
-            <ProtectedRoute user={user}>
-              <NewPost />
-            </ProtectedRoute>
-          }
-        />
-        <Route 
-          path="/posts/:postId/edit" 
-          element={
-            <ProtectedRoute user={user}>
-              <EditPosting  
-                handleUpdatePosting={handleUpdatePosting}
-              />
-            </ProtectedRoute>
-          } 
-        />
-        <Route
-          path="/auth/signup"
-          element={<Signup handleAuthEvt={handleAuthEvt} />}
-        />
-        <Route
-          path="/auth/login"
-          element={<Login handleAuthEvt={handleAuthEvt} />}
-        />
-        <Route
-          path="/auth/change-password"
-          element={
-            <ProtectedRoute user={user}>
-              <ChangePassword handleAuthEvt={handleAuthEvt} />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
+        {user ?
+    <NavBar user={user} handleLogout={handleLogout} />
+
+        :
+        // <Landing />
+        <h1></h1>
+    
+  }
+    <Routes>
+      <Route 
+        path="/" 
+        element={<Landing 
+          user={user} 
+          postings={postings}
+          handleAuthEvt={handleAuthEvt}
+          handleDeletePosting={handleDeletePosting}
+        />} 
+      />
+      <Route
+        path="/profiles"
+        element={
+          <ProtectedRoute user={user}>
+            <Profiles />
+          </ProtectedRoute>
+        }
+      />
+      <Route 
+        path="/posts/new"
+        element={
+          <ProtectedRoute user={user}>
+            <NewPost />
+          </ProtectedRoute>
+        }
+      />
+      <Route 
+        path="/posts/:postId/edit" 
+        element={
+          <ProtectedRoute user={user}>
+            <EditPosting  
+              handleUpdatePosting={handleUpdatePosting}
+            />
+          </ProtectedRoute>
+        } 
+      />
+      <Route
+        path="/auth/signup"
+        element={<Signup handleAuthEvt={handleAuthEvt} />}
+      />
+      <Route
+        path="/auth/login"
+        element={<Login handleAuthEvt={handleAuthEvt} />}
+      />
+      <Route
+        path="/auth/change-password"
+        element={
+          <ProtectedRoute user={user}>
+            <ChangePassword handleAuthEvt={handleAuthEvt} />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
+
     </>
   )
 }
