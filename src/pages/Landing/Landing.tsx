@@ -1,3 +1,6 @@
+//assets
+import rabbithole from '../../assets/RabbitHoleTitle.png'
+
 // css
 import styles from './Landing.module.css'
 
@@ -28,7 +31,10 @@ const Landing = (props: LandingProps): JSX.Element => {
         />  
 
       : 
-        <h1>"please log in"</h1> 
+        <>
+          <img src={rabbithole} alt="" />
+        </>
+
       }
     </main>
   )

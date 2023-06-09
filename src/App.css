@@ -22,6 +22,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
+
+  --bg: #242424;
+
   --1: #fbc120;
   --2: #fea419;
   --3: #fe9315;
