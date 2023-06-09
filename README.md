@@ -1,9 +1,9 @@
 
 # Rabbit Hole
 
-![screenshot](./assets/RabbitHoleTitle.png)
+![screenshot](./src/assets/RabbitHoleTitle.png)
 
-<img src= "./assets/RabbitHoleTitle.png" >
+<img src= "./src/assets/RabbitHoleTitle.png" >
 
 
 # Background
