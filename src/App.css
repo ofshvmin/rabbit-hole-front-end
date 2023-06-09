@@ -13,6 +13,7 @@ body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
   color: rgba(255, 255, 255, 0.87);
+  
   background-color: #242424;
 
   font-synthesis: none;
@@ -20,6 +21,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  --1: #fbc120;
+  --2: #fea419;
+  --3: #fe9315;
+  --4: #fb5905; 
+  --5: #f83900;
+  
+  
+  --6: #3b68f4;
+  --7: #356bf6;
+  --8: #972ae6;
+  --9: #5947e1;
 }
 
 a,
