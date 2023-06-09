@@ -1,11 +1,15 @@
 .container {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
 }
 
 
-
 .container header {
   margin-bottom: 14px;
+}
+
+.div  {
+  width: 400px;
 }

@@ -1,8 +1,8 @@
 // npm modules
 import { Link } from "react-router-dom"
 
-// assets
-// import defaultPic from "../../assets/icons/profile.png"
+// css
+import styles from './PostingCard.module.css'
 
 // components
 import AuthorInfo from "../AuthorInfo/AuthorInfo";
@@ -25,7 +25,7 @@ const PostingCard = (props: PostingCardProps): JSX.Element => {
   
   return (
     
-    <article>
+    <article className={styles.container}>
         <header>
           <AuthorInfo profile={posting.profile}/>
           {/* <img 
@@ -35,7 +35,9 @@ const PostingCard = (props: PostingCardProps): JSX.Element => {
           
           {/* <VoteManager { ...props } /> */}
         </header>
-        <p>{posting.text}</p>
+        <div className={styles.div}>
+          <p>{posting.text}</p>
+        </div>
       {posting.creatorId === user.id ? 
         <span>
               <Link to={`/posts/${posting.id}/edit`} state={posting}>Edit</Link>

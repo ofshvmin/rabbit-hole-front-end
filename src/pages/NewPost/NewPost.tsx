@@ -1,5 +1,6 @@
 // npm modules
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 // css
 import styles from './NewPost.module.css'
@@ -15,6 +16,7 @@ const NewPost = (): JSX.Element => {
   const [formData, setFormData ] = useState({
     text: '',
   })
+  const navigate = useNavigate()
 
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     setFormData({ ...formData, [evt.target.name]: evt.target.value })
@@ -28,6 +30,7 @@ const NewPost = (): JSX.Element => {
 
   const handleAddPost = async (postFormData: PostingFormData) => {
     await postingService.create(postFormData)
+    navigate('/')
   }
 
   return (
