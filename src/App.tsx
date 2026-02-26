@@ -14,6 +14,7 @@ import EditPosting from './pages/EditPosting/EditPosting'
 // components
 import Sidebar from './components/Sidebar/Sidebar'
 import LoginModal from './components/LoginModal/LoginModal'
+import SignupModal from './components/SignupModal/SignupModal'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
@@ -34,6 +35,7 @@ function App(): JSX.Element {
   const [user, setUser] = useState<User | null>(authService.getUser())
   const [postings, setPostings] = useState<Posting[]>([])
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
   const navigate = useNavigate()
 
   const handleLogout = (): void => {
@@ -73,6 +75,17 @@ function App(): JSX.Element {
   const handleModalAuthEvt = (): void => {
     handleAuthEvt()
     setIsLoginModalOpen(false)
+    setIsSignupModalOpen(false)
+  }
+
+  const switchToSignup = (): void => {
+    setIsLoginModalOpen(false)
+    setIsSignupModalOpen(true)
+  }
+
+  const switchToLogin = (): void => {
+    setIsSignupModalOpen(false)
+    setIsLoginModalOpen(true)
   }
 
   return (
@@ -141,6 +154,13 @@ function App(): JSX.Element {
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
         handleAuthEvt={handleModalAuthEvt}
+        onSwitchToSignup={switchToSignup}
+      />
+      <SignupModal
+        isOpen={isSignupModalOpen}
+        onClose={() => setIsSignupModalOpen(false)}
+        handleAuthEvt={handleModalAuthEvt}
+        onSwitchToLogin={switchToLogin}
       />
     </>
   )

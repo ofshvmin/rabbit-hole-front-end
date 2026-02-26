@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import { FaFacebook, FaApple } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { IoClose } from 'react-icons/io5'
@@ -14,10 +13,11 @@ interface LoginModalProps {
   isOpen: boolean
   onClose: () => void
   handleAuthEvt: () => void
+  onSwitchToSignup: () => void
 }
 
 const LoginModal = (props: LoginModalProps): JSX.Element | null => {
-  const { isOpen, onClose, handleAuthEvt } = props
+  const { isOpen, onClose, handleAuthEvt, onSwitchToSignup } = props
 
   const [message, setMessage] = useState('')
   const [formData, setFormData] = useState<LoginFormData>({
@@ -117,9 +117,9 @@ const LoginModal = (props: LoginModalProps): JSX.Element | null => {
 
         <div className={styles.footer}>
           Don't have an account?{' '}
-          <Link to="/auth/signup" className={styles.signupLink} onClick={onClose}>
+          <span className={styles.signupLink} onClick={onSwitchToSignup}>
             Sign up
-          </Link>
+          </span>
         </div>
       </div>
     </div>
