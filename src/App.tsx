@@ -1,4 +1,4 @@
-// npm modules 
+// npm modules
 import { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 
@@ -12,7 +12,8 @@ import NewPost from './pages/NewPost/NewPost'
 import EditPosting from './pages/EditPosting/EditPosting'
 
 // components
-import NavBar from './components/NavBar/NavBar'
+import Sidebar from './components/Sidebar/Sidebar'
+import LoginModal from './components/LoginModal/LoginModal'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 
 // services
@@ -32,8 +33,9 @@ import { PostingFormData } from './types/forms'
 function App(): JSX.Element {
   const [user, setUser] = useState<User | null>(authService.getUser())
   const [postings, setPostings] = useState<Posting[]>([])
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   const navigate = useNavigate()
-  
+
   const handleLogout = (): void => {
     authService.logout()
     setUser(null)
@@ -41,7 +43,7 @@ function App(): JSX.Element {
   }
 
 
-  
+
   const handleAuthEvt = (): void => {
     setUser(authService.getUser())
   }
@@ -68,89 +70,78 @@ function App(): JSX.Element {
     setPostings(postings.map(p => postingFormData.id === p.id ? updatedPosting : p))
   }
 
+  const handleModalAuthEvt = (): void => {
+    handleAuthEvt()
+    setIsLoginModalOpen(false)
+  }
 
-
-  // return (
-  //   <main className={styles.container}>
-
-  //     {user ? 
-  //       <PostingsList
-  //         user={ user }
-  //         postings={ postings }
-  //         handleDeletePosting={ handleDeletePosting }
-  //       />  
-
-  //     : 
-  //       <>
-  //         <img src={rabbithole} alt="" />
-  //       </>
-
-  //     }
-  //   </main>
   return (
     <>
-        {user ?
-    <NavBar user={user} handleLogout={handleLogout} />
-
-        :
-        // <Landing />
-        <h1></h1>
-    
-  }
-    <Routes>
-      <Route 
-        path="/" 
-        element={<Landing 
-          user={user} 
-          postings={postings}
-          handleAuthEvt={handleAuthEvt}
-          handleDeletePosting={handleDeletePosting}
-        />} 
+      <Sidebar
+        user={user}
+        handleLogout={handleLogout}
+        onLoginClick={() => setIsLoginModalOpen(true)}
       />
-      <Route
-        path="/profiles"
-        element={
-          <ProtectedRoute user={user}>
-            <Profiles />
-          </ProtectedRoute>
-        }
+      <main className="mainContent">
+        <Routes>
+          <Route
+            path="/"
+            element={<Landing
+              user={user}
+              postings={postings}
+              handleAuthEvt={handleAuthEvt}
+              handleDeletePosting={handleDeletePosting}
+            />}
+          />
+          <Route
+            path="/profiles"
+            element={
+              <ProtectedRoute user={user}>
+                <Profiles />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/posts/new"
+            element={
+              <ProtectedRoute user={user}>
+                <NewPost />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/posts/:postId/edit"
+            element={
+              <ProtectedRoute user={user}>
+                <EditPosting
+                  handleUpdatePosting={handleUpdatePosting}
+                />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/auth/signup"
+            element={<Signup handleAuthEvt={handleAuthEvt} />}
+          />
+          <Route
+            path="/auth/login"
+            element={<Login handleAuthEvt={handleAuthEvt} />}
+          />
+          <Route
+            path="/auth/change-password"
+            element={
+              <ProtectedRoute user={user}>
+                <ChangePassword handleAuthEvt={handleAuthEvt} />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        handleAuthEvt={handleModalAuthEvt}
       />
-      <Route 
-        path="/posts/new"
-        element={
-          <ProtectedRoute user={user}>
-            <NewPost />
-          </ProtectedRoute>
-        }
-      />
-      <Route 
-        path="/posts/:postId/edit" 
-        element={
-          <ProtectedRoute user={user}>
-            <EditPosting  
-              handleUpdatePosting={handleUpdatePosting}
-            />
-          </ProtectedRoute>
-        } 
-      />
-      <Route
-        path="/auth/signup"
-        element={<Signup handleAuthEvt={handleAuthEvt} />}
-      />
-      <Route
-        path="/auth/login"
-        element={<Login handleAuthEvt={handleAuthEvt} />}
-      />
-      <Route
-        path="/auth/change-password"
-        element={
-          <ProtectedRoute user={user}>
-            <ChangePassword handleAuthEvt={handleAuthEvt} />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
-
     </>
   )
 }

@@ -1,0 +1,128 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 20px 16px;
+  z-index: 100;
+  border-right: 1px solid #333;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.logo {
+  width: 160px;
+  object-fit: contain;
+  margin-bottom: 4px;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  border-radius: 20px;
+  padding: 8px 12px;
+  gap: 8px;
+}
+
+.searchIcon {
+  color: #888;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.searchInput {
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 14px;
+  width: 100%;
+  cursor: default;
+}
+
+.searchInput::placeholder {
+  color: #888;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+.navItem:hover {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.active {
+  color: var(--2);
+}
+
+.active:hover {
+  color: var(--2);
+}
+
+.navIcon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.loginBtn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--2), var(--4));
+  transition: opacity 0.15s;
+}
+
+.loginBtn:hover {
+  opacity: 0.9;
+}
+
+.logoutBtn {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #555;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  background: none;
+  transition: background-color 0.15s;
+}
+
+.logoutBtn:hover {
+  background-color: #2a2a2a;
+}

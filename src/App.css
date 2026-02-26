@@ -13,7 +13,7 @@ body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
 
   color: rgba(255, 255, 255, 0.87);
-  
+
   background-color: #242424;
 
   font-synthesis: none;
@@ -28,10 +28,10 @@ body {
   --1: #fbc120;
   --2: #fea419;
   --3: #fe9315;
-  --4: #fb5905; 
+  --4: #fb5905;
   --5: #f83900;
-  
-  
+
+
   --6: #3b68f4;
   --7: #356bf6;
   --8: #972ae6;
@@ -40,7 +40,7 @@ body {
 
 a,
 a:visited {
-  color:var(--9); 
+  color:var(--9);
   font-weight: 600;
 }
 
@@ -48,19 +48,11 @@ div#root {
   display: flex;
 }
 
-nav {
-  position: sticky;
-}
-
-nav > ul {
-  margin: 0;
-  padding: 16px 32px;
-}
-
-nav > img {
-  margin: 20px;
-  width: 100px;
-  object-fit: cover;
+.mainContent {
+  margin-left: 240px;
+  flex: 1;
+  padding: 24px;
+  min-height: 100vh;
 }
 
 article {
