@@ -66,15 +66,22 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
             <span>Following</span>
           </NavLink>
 
-          <NavLink
-            to="/profiles"
-            className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.active : ''}`
-            }
-          >
-            <AiOutlineUser className={styles.navIcon} />
-            <span>Profile</span>
-          </NavLink>
+          {user ? (
+            <NavLink
+              to="/profiles"
+              className={({ isActive }) =>
+                `${styles.navItem} ${isActive ? styles.active : ''}`
+              }
+            >
+              <AiOutlineUser className={styles.navIcon} />
+              <span>Profile</span>
+            </NavLink>
+          ) : (
+            <button className={styles.navItem} onClick={onLoginClick}>
+              <AiOutlineUser className={styles.navIcon} />
+              <span>Profile</span>
+            </button>
+          )}
 
           {user ? (
             <button className={styles.logoutBtn} onClick={handleLogout}>
