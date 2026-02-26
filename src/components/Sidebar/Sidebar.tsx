@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import { AiOutlineHome, AiOutlineCompass, AiOutlineUser } from 'react-icons/ai'
 import { RiUserFollowLine } from 'react-icons/ri'
@@ -12,10 +13,23 @@ interface SidebarProps {
   user: User | null
   handleLogout: () => void
   onLoginClick: () => void
+  isLoginModalOpen: boolean
 }
 
 const Sidebar = (props: SidebarProps): JSX.Element => {
-  const { user, handleLogout, onLoginClick } = props
+  const { user, handleLogout, onLoginClick, isLoginModalOpen } = props
+  const [profileClicked, setProfileClicked] = useState(false)
+
+  useEffect(() => {
+    if (!isLoginModalOpen) setProfileClicked(false)
+  }, [isLoginModalOpen])
+
+  const handleProfileClick = () => {
+    setProfileClicked(true)
+    onLoginClick()
+  }
+
+  const isProfileActive = profileClicked && isLoginModalOpen
 
   return (
     <aside className={styles.sidebar}>
@@ -30,7 +44,6 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
             type="text"
             placeholder="Search"
             className={styles.searchInput}
-            readOnly
           />
         </div>
 
@@ -39,7 +52,7 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
             to="/"
             end
             className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.active : ''}`
+              `${styles.navItem} ${isActive && !isProfileActive ? styles.active : ''}`
             }
           >
             <AiOutlineHome className={styles.navIcon} />
@@ -49,7 +62,7 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
           <NavLink
             to="/explore"
             className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.active : ''}`
+              `${styles.navItem} ${isActive && !isProfileActive ? styles.active : ''}`
             }
           >
             <AiOutlineCompass className={styles.navIcon} />
@@ -59,7 +72,7 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
           <NavLink
             to="/following"
             className={({ isActive }) =>
-              `${styles.navItem} ${isActive ? styles.active : ''}`
+              `${styles.navItem} ${isActive && !isProfileActive ? styles.active : ''}`
             }
           >
             <RiUserFollowLine className={styles.navIcon} />
@@ -77,7 +90,10 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
               <span>Profile</span>
             </NavLink>
           ) : (
-            <button className={styles.navItem} onClick={onLoginClick}>
+            <button
+              className={`${styles.navItem} ${profileClicked && isLoginModalOpen ? styles.active : ''}`}
+              onClick={handleProfileClick}
+            >
               <AiOutlineUser className={styles.navIcon} />
               <span>Profile</span>
             </button>

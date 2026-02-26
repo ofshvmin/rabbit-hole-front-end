@@ -94,6 +94,7 @@ function App(): JSX.Element {
         user={user}
         handleLogout={handleLogout}
         onLoginClick={() => setIsLoginModalOpen(true)}
+        isLoginModalOpen={isLoginModalOpen}
       />
       <main className="mainContent">
         <Routes>
