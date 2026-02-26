@@ -182,3 +182,97 @@
   line-height: 1.5;
   margin: 0;
 }
+
+/* --- Rabbit Hole animation in search modal --- */
+
+.animationContainer {
+  position: relative;
+  width: 160px;
+  height: 140px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.rabbitClip {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 34px 0);
+  z-index: 3;
+}
+
+.rabbitImg {
+  position: absolute;
+  width: 60px;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%) rotate(-45deg);
+  animation: rabbitDive 2.2s ease-in-out forwards;
+}
+
+.holeEllipse {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #1a6fd4 0%, #3b3fc7 60%, #6a3db8 100%);
+  z-index: 2;
+}
+
+.logoText {
+  margin: 0 0 16px;
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4a9eed, #6a5acd, #9b59b6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0;
+  animation: textFadeIn 0.7s ease-out 1.5s forwards;
+}
+
+@keyframes rabbitDive {
+  0% {
+    top: 10px;
+    transform: translateX(-50%) rotate(-45deg) scale(1);
+    opacity: 1;
+  }
+  25% {
+    top: 5px;
+    transform: translateX(-50%) rotate(-10deg) scale(1);
+    opacity: 1;
+  }
+  45% {
+    top: 20px;
+    transform: translateX(-50%) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  65% {
+    top: 55px;
+    transform: translateX(-50%) rotate(30deg) scale(0.85);
+    opacity: 1;
+  }
+  80% {
+    top: 90px;
+    transform: translateX(-50%) rotate(60deg) scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    top: 130px;
+    transform: translateX(-50%) rotate(90deg) scale(0.3);
+    opacity: 0;
+  }
+}
+
+@keyframes textFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

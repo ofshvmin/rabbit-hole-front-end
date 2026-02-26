@@ -6,6 +6,7 @@ import { FiSearch } from 'react-icons/fi'
 import { IoClose } from 'react-icons/io5'
 
 import logo from '../../assets/RabbitHoleTitle.png'
+import rabbitImg from '../../assets/RabbitHole.png'
 import styles from './Sidebar.module.css'
 
 import { User } from '../../types/models'
@@ -142,6 +143,13 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
           >
             <IoClose />
           </button>
+          <div className={styles.animationContainer}>
+            <div className={styles.rabbitClip}>
+              <img src={rabbitImg} alt="" className={styles.rabbitImg} />
+            </div>
+            <div className={styles.holeEllipse} />
+          </div>
+          <h2 className={styles.logoText}>Rabbit Hole</h2>
           <p className={styles.searchModalText}>
             Congratulations! You've discovered yet-to-be-implemented functionality. Thank you for exploring my app.
           </p>
