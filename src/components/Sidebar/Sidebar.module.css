@@ -130,3 +130,55 @@
 .logoutBtn:hover {
   background-color: #2a2a2a;
 }
+
+.searchOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.searchModal {
+  position: relative;
+  width: 480px;
+  max-width: 90vw;
+  background-color: #2f2f2f;
+  border-radius: 12px;
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchCloseBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: background-color 0.15s;
+}
+
+.searchCloseBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.searchModalText {
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  line-height: 1.5;
+  margin: 0;
+}

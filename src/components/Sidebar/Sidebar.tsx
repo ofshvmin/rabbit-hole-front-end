@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { AiOutlineHome, AiOutlineCompass, AiOutlineUser } from 'react-icons/ai'
 import { RiUserFollowLine } from 'react-icons/ri'
 import { FiSearch } from 'react-icons/fi'
+import { IoClose } from 'react-icons/io5'
 
 import logo from '../../assets/RabbitHoleTitle.png'
 import styles from './Sidebar.module.css'
@@ -19,6 +20,8 @@ interface SidebarProps {
 const Sidebar = (props: SidebarProps): JSX.Element => {
   const { user, handleLogout, onLoginClick, isLoginModalOpen } = props
   const [profileClicked, setProfileClicked] = useState(false)
+  const [searchQuery, setSearchQuery] = useState('')
+  const [isSearchModalOpen, setIsSearchModalOpen] = useState(false)
 
   useEffect(() => {
     if (!isLoginModalOpen) setProfileClicked(false)
@@ -31,7 +34,14 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
 
   const isProfileActive = profileClicked && isLoginModalOpen
 
+  const handleSearchKeyDown = (evt: React.KeyboardEvent<HTMLInputElement>) => {
+    if (evt.key === 'Enter' && searchQuery.trim()) {
+      setIsSearchModalOpen(true)
+    }
+  }
+
   return (
+    <>
     <aside className={styles.sidebar}>
       <div className={styles.top}>
         <NavLink to="/">
@@ -44,6 +54,9 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
             type="text"
             placeholder="Search"
             className={styles.searchInput}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={handleSearchKeyDown}
           />
         </div>
 
@@ -111,6 +124,31 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
         </nav>
       </div>
     </aside>
+
+    {isSearchModalOpen && (
+      <div
+        className={styles.searchOverlay}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            setIsSearchModalOpen(false)
+            setSearchQuery('')
+          }
+        }}
+      >
+        <div className={styles.searchModal}>
+          <button
+            className={styles.searchCloseBtn}
+            onClick={() => { setIsSearchModalOpen(false); setSearchQuery('') }}
+          >
+            <IoClose />
+          </button>
+          <p className={styles.searchModalText}>
+            Congratulations! You've discovered yet-to-be-implemented functionality. Thank you for exploring my app.
+          </p>
+        </div>
+      </div>
+    )}
+    </>
   )
 }
 
