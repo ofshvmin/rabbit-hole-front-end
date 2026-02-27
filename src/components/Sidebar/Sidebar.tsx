@@ -6,8 +6,8 @@ import { FiSearch } from 'react-icons/fi'
 import { IoClose } from 'react-icons/io5'
 
 import logo from '../../assets/RabbitHoleTitle.png'
-import rabbitImg from '../../assets/RabbitHole.png'
 import styles from './Sidebar.module.css'
+import RabbitAnimation from './RabbitAnimation'
 
 import { User } from '../../types/models'
 
@@ -145,7 +145,7 @@ const Sidebar = (props: SidebarProps): JSX.Element => {
           </button>
           <div className={styles.animationContainer}>
             <div className={styles.rabbitClip}>
-              <img src={rabbitImg} alt="" className={styles.rabbitImg} />
+              <RabbitAnimation />
             </div>
             <div className={styles.holeEllipse} />
           </div>

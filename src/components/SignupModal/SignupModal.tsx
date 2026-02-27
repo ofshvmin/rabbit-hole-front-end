@@ -1,7 +1,8 @@
 import { useState, useRef } from 'react'
+import jwt_decode from 'jwt-decode'
 import { FaFacebook, FaApple } from 'react-icons/fa'
-import { FcGoogle } from 'react-icons/fc'
 import { IoClose, IoArrowBack } from 'react-icons/io5'
+import { GoogleLogin } from '@react-oauth/google'
 
 import * as authService from '../../services/authService'
 import styles from './SignupModal.module.css'
@@ -32,6 +33,53 @@ const SignupModal = (props: SignupModalProps): JSX.Element | null => {
   const [photoData, setPhotoData] = useState<PhotoFormData>({
     photo: null,
   })
+
+  // Facebook OAuth
+  const handleFacebookSignup = (): void => {
+    if (!window.FB) {
+      setMessage('Facebook SDK not loaded. Please try again.')
+      return
+    }
+    window.FB.login(
+      (response) => {
+        if (response.authResponse) {
+          authService
+            .facebookOAuth({ accessToken: response.authResponse.accessToken })
+            .then(() => {
+              handleAuthEvt()
+              handleClose()
+            })
+            .catch((err) => handleErrMsg(err, setMessage))
+        } else {
+          setMessage('Facebook sign-in was cancelled or failed.')
+        }
+      },
+      { scope: 'email,public_profile' },
+    )
+  }
+
+  // Apple Sign In
+  const handleAppleSignup = async (): Promise<void> => {
+    try {
+      if (!window.AppleID) {
+        setMessage('Apple Sign In not loaded. Please try again.')
+        return
+      }
+      const data = await window.AppleID.auth.signIn()
+      await authService.appleOAuth({
+        idToken: data.authorization.id_token,
+        code: data.authorization.code,
+      })
+      handleAuthEvt()
+      handleClose()
+    } catch (err: unknown) {
+      if (err && typeof err === 'object' && 'error' in err && err.error === 'popup_closed_by_user') {
+        return
+      }
+      console.log(err)
+      handleErrMsg(err, setMessage)
+    }
+  }
 
   const resetState = () => {
     setStep(1)
@@ -153,15 +201,28 @@ const SignupModal = (props: SignupModalProps): JSX.Element | null => {
               <span>OR</span>
             </div>
             <div className={styles.socialButtons}>
-              <button className={styles.socialBtn}>
+              <button className={styles.socialBtn} onClick={handleFacebookSignup}>
                 <FaFacebook className={styles.fbIcon} />
                 <span>Continue with Facebook</span>
               </button>
-              <button className={styles.socialBtn}>
-                <FcGoogle />
-                <span>Continue with Google</span>
-              </button>
-              <button className={styles.socialBtn}>
+              <GoogleLogin
+                useOneTap={false}
+                text="continue_with"
+                onSuccess={async (credentialResponse) => {
+                  try {
+                    if (!credentialResponse.credential) throw new Error('No credential')
+                    const { name, email } = jwt_decode<{ name: string; email: string }>(credentialResponse.credential)
+                    await authService.googleOAuth({ idToken: credentialResponse.credential, name, email })
+                    handleAuthEvt()
+                    handleClose()
+                  } catch (err) {
+                    console.log(err)
+                    handleErrMsg(err, setMessage)
+                  }
+                }}
+                onError={() => setMessage('Google sign-in failed.')}
+              />
+              <button className={styles.socialBtn} onClick={handleAppleSignup}>
                 <FaApple />
                 <span>Continue with Apple</span>
               </button>

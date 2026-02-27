@@ -187,8 +187,8 @@
 
 .animationContainer {
   position: relative;
-  width: 160px;
-  height: 140px;
+  width: 320px;
+  height: 180px;
   overflow: hidden;
   margin-bottom: 4px;
 }
@@ -200,14 +200,32 @@
   z-index: 3;
 }
 
-.rabbitImg {
+.rabbitMover {
   position: absolute;
-  width: 60px;
-  left: 50%;
-  top: 10px;
-  transform: translateX(-50%) rotate(-45deg);
-  animation: rabbitDive 2.2s ease-in-out forwards;
+  width: 80px;
+  height: 80px;
+  animation: rabbitMove 3.5s ease-in-out forwards;
 }
+
+.rabbitPose {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.poseImg {
+  object-fit: contain;
+}
+
+.pose1 { animation: showPose1 3.5s ease-in-out forwards; }
+.pose2 { animation: showPose2 3.5s ease-in-out forwards; }
+.pose3 { animation: showPose3 3.5s ease-in-out forwards; }
+.pose4 { animation: showPose4 3.5s ease-in-out forwards; }
+.pose5 { animation: showPose5 3.5s ease-in-out forwards; }
+.pose6 { animation: showPose6 3.5s ease-in-out forwards; }
+.pose7 { animation: showPose7 3.5s ease-in-out forwards; }
 
 .holeEllipse {
   position: absolute;
@@ -230,40 +248,60 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   opacity: 0;
-  animation: textFadeIn 0.7s ease-out 1.5s forwards;
+  animation: textFadeIn 0.7s ease-out 3.2s forwards;
 }
 
-@keyframes rabbitDive {
-  0% {
-    top: 10px;
-    transform: translateX(-50%) rotate(-45deg) scale(1);
-    opacity: 1;
-  }
-  25% {
-    top: 5px;
-    transform: translateX(-50%) rotate(-10deg) scale(1);
-    opacity: 1;
-  }
-  45% {
-    top: 20px;
-    transform: translateX(-50%) rotate(0deg) scale(1);
-    opacity: 1;
-  }
-  65% {
-    top: 55px;
-    transform: translateX(-50%) rotate(30deg) scale(0.85);
-    opacity: 1;
-  }
-  80% {
-    top: 90px;
-    transform: translateX(-50%) rotate(60deg) scale(0.6);
-    opacity: 1;
-  }
-  100% {
-    top: 130px;
-    transform: translateX(-50%) rotate(90deg) scale(0.3);
-    opacity: 0;
-  }
+/* --- Position along arc path --- */
+@keyframes rabbitMove {
+  0%   { left: 30px; top: 70px; }
+  15%  { left: 30px; top: 62px; }
+  28%  { left: 30px; top: 74px; }
+  42%  { left: 55px; top: 35px; }
+  56%  { left: 90px; top: 8px; }
+  68%  { left: 115px; top: 0px; }
+  80%  { left: 118px; top: 12px; }
+  100% { left: 118px; top: 155px; opacity: 0; }
+}
+
+/* --- Cross-fade opacity for each pose --- */
+@keyframes showPose1 {
+  0%, 13%  { opacity: 1; }
+  17%, 100% { opacity: 0; }
+}
+
+@keyframes showPose2 {
+  0%, 12%  { opacity: 0; }
+  16%, 26% { opacity: 1; }
+  30%, 100% { opacity: 0; }
+}
+
+@keyframes showPose3 {
+  0%, 25%  { opacity: 0; }
+  29%, 39% { opacity: 1; }
+  43%, 100% { opacity: 0; }
+}
+
+@keyframes showPose4 {
+  0%, 38%  { opacity: 0; }
+  42%, 52% { opacity: 1; }
+  56%, 100% { opacity: 0; }
+}
+
+@keyframes showPose5 {
+  0%, 51%  { opacity: 0; }
+  55%, 65% { opacity: 1; }
+  69%, 100% { opacity: 0; }
+}
+
+@keyframes showPose6 {
+  0%, 64%  { opacity: 0; }
+  68%, 78% { opacity: 1; }
+  82%, 100% { opacity: 0; }
+}
+
+@keyframes showPose7 {
+  0%, 77%  { opacity: 0; }
+  81%, 100% { opacity: 1; }
 }
 
 @keyframes textFadeIn {
