@@ -1,5 +1,6 @@
 // npm modules
 import { useState, useEffect } from 'react'
+import default_user_image from '../../assets/default_user_image.png'
 
 // services
 import * as profileService from '../../services/profileService'
@@ -37,11 +38,12 @@ const Profiles = (): JSX.Element => {
       {profiles.map((profile: Profile) => (
         <p key={profile.id}>
           <img
-            src={profile.photo? profile.photo : ""}
+            src={profile.photo? profile.photo : default_user_image}
             alt={`${profile.name}'s avatar`} 
             />
-            
+            <p>
             {profile.name}
+            </p>
 
 
         </p>

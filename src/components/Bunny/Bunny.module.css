@@ -1,0 +1,81 @@
+.rh-wrap {
+  position: relative;
+  display: inline-block;
+  /* responsive: scale with container */
+  width: min(720px, 100%);
+}
+
+.rh-logo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Adjust this to match the hole center in YOUR logo image */
+.rh-holeTarget {
+  position: absolute;
+  left: 235px;   /* <-- tweak */
+  top: 118px;    /* <-- tweak */
+  width: 120px;  /* <-- tweak */
+  height: 18px;  /* <-- tweak */
+  border-radius: 999px;
+  pointer-events: none;
+  opacity: 0;    /* set to 0.2 temporarily while tuning */
+}
+
+.rh-bunny {
+  position: absolute;
+  left: 90px;   /* <-- tweak to sit over the logo bunny */
+  top: 62px;    /* <-- tweak */
+  width: 140px; /* <-- tweak sizing */
+  height: 140px;
+
+  /* Your brand gradient (tweak to match exactly) */
+  background: linear-gradient(90deg, #ff7a18 0%, #ffb020 100%);
+
+  /* Sprite mask */
+  -webkit-mask-image: var(--maskUrl);
+  mask-image: var(--maskUrl);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+
+  /* 8 frames horizontally => 800% width */
+  -webkit-mask-size: 800% 100%;
+  mask-size: 800% 100%;
+  -webkit-mask-position: 0% 0%;
+  mask-position: 0% 0%;
+
+  transform-origin: 50% 85%;
+  pointer-events: none;
+  opacity: 1;
+}
+
+/* Only animate when playing */
+.rh-wrap[data-playing="true"] .rh-bunny {
+  animation:
+    rhBunnyMove 3.2s ease-in-out 0s 1 both,
+    rhBunnyFrames 1.1s steps(7) 1.55s 1 both,
+    rhEarTwitch 0.18s ease-in-out 1.35s 2 both;
+}
+
+/* Sit ~1.2–1.6s, coil, then leap into the hole + shrink + fade */
+@keyframes rhBunnyMove {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  38%  { transform: translate(0, 0) scale(1); opacity: 1; }              /* sit */
+  48%  { transform: translate(0, 2px) scaleX(1.06) scaleY(0.86); }        /* coil/squash */
+  56%  { transform: translate(6px, -6px) scale(1.02); }                   /* spring */
+  100% { transform: translate(170px, 60px) scale(0.08); opacity: 0; }     /* into hole */
+}
+
+/* Advance through your 8 pose frames during the action */
+@keyframes rhBunnyFrames {
+  from { -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
+  to   { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
+}
+
+/* Cheap “ear twitch” feel: a tiny rotate wobble before the leap */
+@keyframes rhEarTwitch {
+  0%   { transform: translate(0,0) rotate(0deg); }
+  50%  { transform: translate(0,0) rotate(-4deg); }
+  100% { transform: translate(0,0) rotate(0deg); }
+}
