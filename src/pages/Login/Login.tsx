@@ -34,7 +34,7 @@ const LoginPage = (props: AuthPageProps): JSX.Element => {
       if (!import.meta.env.VITE_BACK_END_SERVER_URL) {
         throw new Error('No VITE_BACK_END_SERVER_URL in front-end .env')
       }
-      await authService.login(formData)
+      await authService.createSession(formData)
       handleAuthEvt()
       navigate('/')
     } catch (err) {

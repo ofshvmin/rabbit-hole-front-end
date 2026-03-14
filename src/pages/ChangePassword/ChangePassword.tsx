@@ -33,7 +33,7 @@ const ChangePassword = (props: AuthPageProps): JSX.Element => {
   const handleSubmit = async (evt: React.FormEvent): Promise<void> => {
     evt.preventDefault()
     try {
-      await authService.changePassword(formData)
+      await authService.updatePassword(formData)
       handleAuthEvt()
       navigate('/')
     } catch (err) {

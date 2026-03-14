@@ -72,7 +72,7 @@ const Signup = (props: AuthPageProps): JSX.Element => {
         throw new Error('No VITE_BACK_END_SERVER_URL in front-end .env')
       }
       setIsSubmitted(true)
-      await authService.signup(formData, photoData)
+      await authService.registerUser(formData, photoData)
       handleAuthEvt()
       navigate('/')
     } catch (err) {

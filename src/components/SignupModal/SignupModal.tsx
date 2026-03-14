@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import jwt_decode from 'jwt-decode'
-import { FaFacebook, FaApple } from 'react-icons/fa'
+// import { FaFacebook, FaApple } from 'react-icons/fa'
+import { FaApple } from 'react-icons/fa'
 import { IoClose, IoArrowBack } from 'react-icons/io5'
 import { GoogleLogin } from '@react-oauth/google'
 
@@ -34,39 +35,49 @@ const SignupModal = (props: SignupModalProps): JSX.Element | null => {
     photo: null,
   })
 
-  // Facebook OAuth
-  const handleFacebookSignup = (): void => {
-    if (!window.FB) {
-      setMessage('Facebook SDK not loaded. Please try again.')
-      return
-    }
-    window.FB.login(
-      (response) => {
-        if (response.authResponse) {
-          authService
-            .facebookOAuth({ accessToken: response.authResponse.accessToken })
-            .then(() => {
-              handleAuthEvt()
-              handleClose()
-            })
-            .catch((err) => handleErrMsg(err, setMessage))
-        } else {
-          setMessage('Facebook sign-in was cancelled or failed.')
-        }
-      },
-      { scope: 'email,public_profile' },
-    )
-  }
+  // // Facebook OAuth
+  // const handleFacebookSignup = (): void => {
+  //   const fbAppId = import.meta.env.VITE_FACEBOOK_APP_ID
+  //   if (!fbAppId || fbAppId === 'your-facebook-app-id') {
+  //     setMessage('Facebook login is not configured. Add your Facebook App ID to the .env file.')
+  //     return
+  //   }
+  //   if (!window.FB) {
+  //     setMessage('Facebook SDK not loaded. Please try again.')
+  //     return
+  //   }
+  //   window.FB.login(
+  //     (response) => {
+  //       if (response.authResponse) {
+  //         authService
+  //           .authenticateWithFacebook({ accessToken: response.authResponse.accessToken })
+  //           .then(() => {
+  //             handleAuthEvt()
+  //             handleClose()
+  //           })
+  //           .catch((err) => handleErrMsg(err, setMessage))
+  //       } else {
+  //         setMessage('Facebook sign-in was cancelled or failed.')
+  //       }
+  //     },
+  //     { scope: 'email,public_profile' },
+  //   )
+  // }
 
   // Apple Sign In
   const handleAppleSignup = async (): Promise<void> => {
     try {
+      const appleClientId = import.meta.env.VITE_APPLE_CLIENT_ID
+      if (!appleClientId || appleClientId === 'your.apple.service.id') {
+        setMessage('Apple Sign In is not configured. Add your Apple Service ID to the .env file.')
+        return
+      }
       if (!window.AppleID) {
         setMessage('Apple Sign In not loaded. Please try again.')
         return
       }
       const data = await window.AppleID.auth.signIn()
-      await authService.appleOAuth({
+      await authService.authenticateWithApple({
         idToken: data.authorization.id_token,
         code: data.authorization.code,
       })
@@ -133,7 +144,7 @@ const SignupModal = (props: SignupModalProps): JSX.Element | null => {
         throw new Error('No VITE_BACK_END_SERVER_URL in front-end .env')
       }
       setIsSubmitted(true)
-      await authService.signup(formData, photoData)
+      await authService.registerUser(formData, photoData)
       handleAuthEvt()
       handleClose()
     } catch (err) {
@@ -150,7 +161,7 @@ const SignupModal = (props: SignupModalProps): JSX.Element | null => {
         throw new Error('No VITE_BACK_END_SERVER_URL in front-end .env')
       }
       setIsSubmitted(true)
-      await authService.signup(formData, { photo: null })
+      await authService.registerUser(formData, { photo: null })
       handleAuthEvt()
       handleClose()
     } catch (err) {
@@ -201,10 +212,10 @@ const SignupModal = (props: SignupModalProps): JSX.Element | null => {
               <span>OR</span>
             </div>
             <div className={styles.socialButtons}>
-              <button className={styles.socialBtn} onClick={handleFacebookSignup}>
+              {/* <button className={styles.socialBtn} onClick={handleFacebookSignup}>
                 <FaFacebook className={styles.fbIcon} />
                 <span>Continue with Facebook</span>
-              </button>
+              </button> */}
               <GoogleLogin
                 useOneTap={false}
                 text="continue_with"
@@ -212,7 +223,7 @@ const SignupModal = (props: SignupModalProps): JSX.Element | null => {
                   try {
                     if (!credentialResponse.credential) throw new Error('No credential')
                     const { name, email } = jwt_decode<{ name: string; email: string }>(credentialResponse.credential)
-                    await authService.googleOAuth({ idToken: credentialResponse.credential, name, email })
+                    await authService.authenticateWithGoogle({ idToken: credentialResponse.credential, name, email })
                     handleAuthEvt()
                     handleClose()
                   } catch (err) {

@@ -13,8 +13,8 @@ import { User } from '../types/models'
 
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/api/auth`
 
-async function signup(
-  signupFormData: SignupFormData, 
+async function registerUser(
+  signupFormData: SignupFormData,
   photoData: PhotoFormData,
 ): Promise<void> {
   const res = await fetch(`${BASE_URL}/signup`, {
@@ -25,7 +25,7 @@ async function signup(
   const json = await res.json()
 
   if (json.err) throw new Error(json.err)
-  
+
   if (json.token) {
     tokenService.setToken(json.token)
 
@@ -35,15 +35,15 @@ async function signup(
   }
 }
 
-function getUser(): User | null {
+function getAuthenticatedUser(): User | null {
   return tokenService.getUserFromToken()
 }
 
-function logout(): void {
+function deleteSession(): void {
   tokenService.removeToken()
 }
 
-async function login(loginFormData: LoginFormData): Promise<void> {
+async function createSession(loginFormData: LoginFormData): Promise<void> {
   const res = await fetch(`${BASE_URL}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -54,11 +54,9 @@ async function login(loginFormData: LoginFormData): Promise<void> {
   if (json.err) throw new Error(json.err)
 
   if (json.token) tokenService.setToken(json.token)
-  console.log(json.token);
-  
 }
 
-async function googleOAuth(data: { idToken: string; name: string; email: string }): Promise<void> {
+async function authenticateWithGoogle(data: { idToken: string; name: string; email: string }): Promise<void> {
   const res = await fetch(`${BASE_URL}/google`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -69,18 +67,18 @@ async function googleOAuth(data: { idToken: string; name: string; email: string 
   if (json.token) tokenService.setToken(json.token)
 }
 
-async function facebookOAuth(data: { accessToken: string }): Promise<void> {
-  const res = await fetch(`${BASE_URL}/facebook`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
-  const json = await res.json()
-  if (json.err) throw new Error(json.err)
-  if (json.token) tokenService.setToken(json.token)
-}
+// async function authenticateWithFacebook(data: { accessToken: string }): Promise<void> {
+//   const res = await fetch(`${BASE_URL}/facebook`, {
+//     method: 'POST',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify(data),
+//   })
+//   const json = await res.json()
+//   if (json.err) throw new Error(json.err)
+//   if (json.token) tokenService.setToken(json.token)
+// }
 
-async function appleOAuth(data: { idToken: string; code: string }): Promise<void> {
+async function authenticateWithApple(data: { idToken: string; code: string }): Promise<void> {
   const res = await fetch(`${BASE_URL}/apple`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -91,7 +89,7 @@ async function appleOAuth(data: { idToken: string; code: string }): Promise<void
   if (json.token) tokenService.setToken(json.token)
 }
 
-async function changePassword(
+async function updatePassword(
   changePasswordFormData: ChangePasswordFormData
 ): Promise<void> {
   const res = await fetch(`${BASE_URL}/change-password`, {
@@ -112,4 +110,13 @@ async function changePassword(
   }
 }
 
-export { signup, getUser, logout, login, changePassword, googleOAuth, facebookOAuth, appleOAuth }
+export {
+  registerUser,
+  getAuthenticatedUser,
+  deleteSession,
+  createSession,
+  authenticateWithGoogle,
+  // authenticateWithFacebook,
+  authenticateWithApple,
+  updatePassword,
+}

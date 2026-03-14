@@ -32,40 +32,47 @@ import { PostingFormData } from './types/forms'
 
 
 function App(): JSX.Element {
-  const [user, setUser] = useState<User | null>(authService.getUser())
+  const [user, setUser] = useState<User | null>(authService.getAuthenticatedUser())
   const [postings, setPostings] = useState<Posting[]>([])
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   const [isSignupModalOpen, setIsSignupModalOpen] = useState(false)
   const navigate = useNavigate()
 
-  // Initialize Facebook SDK
-  useEffect(() => {
-    window.fbAsyncInit = function () {
-      window.FB.init({
-        appId: import.meta.env.VITE_FACEBOOK_APP_ID,
-        cookie: true,
-        xfbml: true,
-        version: 'v18.0',
-      })
-    }
-    const fbScript = document.createElement('script')
-    fbScript.src = 'https://connect.facebook.net/en_US/sdk.js'
-    fbScript.async = true
-    fbScript.defer = true
-    document.body.appendChild(fbScript)
-  }, [])
+  // // Initialize Facebook SDK
+  // useEffect(() => {
+  //   const fbAppId = import.meta.env.VITE_FACEBOOK_APP_ID
+  //   if (!fbAppId || fbAppId === 'your-facebook-app-id') return
+
+  //   window.fbAsyncInit = function () {
+  //     window.FB.init({
+  //       appId: fbAppId,
+  //       cookie: true,
+  //       xfbml: true,
+  //       version: 'v18.0',
+  //     })
+  //   }
+  //   const fbScript = document.createElement('script')
+  //   fbScript.src = 'https://connect.facebook.net/en_US/sdk.js'
+  //   fbScript.async = true
+  //   fbScript.defer = true
+  //   document.body.appendChild(fbScript)
+  // }, [])
 
   // Initialize Apple Sign In SDK
   useEffect(() => {
+    const appleClientId = import.meta.env.VITE_APPLE_CLIENT_ID
+    const appleRedirectUri = import.meta.env.VITE_APPLE_REDIRECT_URI
+    if (!appleClientId || appleClientId === 'your.apple.service.id') return
+
     const appleScript = document.createElement('script')
     appleScript.src = 'https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js'
     appleScript.async = true
     appleScript.onload = () => {
-      if (window.AppleID && import.meta.env.VITE_APPLE_CLIENT_ID) {
+      if (window.AppleID) {
         window.AppleID.auth.init({
-          clientId: import.meta.env.VITE_APPLE_CLIENT_ID,
+          clientId: appleClientId,
           scope: 'name email',
-          redirectURI: import.meta.env.VITE_APPLE_REDIRECT_URI,
+          redirectURI: appleRedirectUri,
           usePopup: true,
         })
       }
@@ -74,7 +81,7 @@ function App(): JSX.Element {
   }, [])
 
   const handleLogout = (): void => {
-    authService.logout()
+    authService.deleteSession()
     setUser(null)
     navigate('/')
   }
@@ -82,7 +89,7 @@ function App(): JSX.Element {
 
 
   const handleAuthEvt = (): void => {
-    setUser(authService.getUser())
+    setUser(authService.getAuthenticatedUser())
   }
 
   useEffect((): void => {
